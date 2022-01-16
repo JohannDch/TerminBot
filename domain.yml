@@ -1,0 +1,86 @@
+version: "3.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - inform_entryname
+  - inform_date
+  - inform_starttime
+  - inform_duration
+  - make_entry
+  - helloworld
+
+actions:
+  - action_make_entry
+
+entities:
+  - entryname
+  - date
+  - starttime
+  - duration
+
+responses:
+  utter_greet:
+  - text: "Hey! What do you want to do?"
+
+  utter_ask_entryname:
+  - text: "What should your calendar entry be called?"
+
+  utter_ask_date:
+  - text: "When does the event take place? (YYYY-MM-DD)"
+
+  utter_ask_starttime:
+  - text: "When does the event start? (HH:MM)"
+
+  utter_ask_duration:
+  - text: "How long does the event last? (HH)"
+
+  utter_entry_made:
+  - text: "{entryname} has been added to your calendar on {date}, starting at {starttime} for {duration} hours"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+slots:
+  entryname:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: entryname
+  date:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: date
+  starttime:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: starttime
+  duration:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: duration
+
+
+forms:
+  entry_form:
+    required_slots:
+      - entryname
+      - date
+      - starttime
+      - duration
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
